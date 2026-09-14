@@ -21,11 +21,6 @@ The plotter accepts a subset of G-code over serial (`G28` homing, `G1` linear mo
 - Jerk is derived from commanded velocity and a tunable `RAMP_TIME_S`, rather than hardcoded
 - Distance tracking uses an incremental dx/dy accumulator rather than absolute position, to stay robust to any single bad encoder read
 
-## Known Issues / Future Work
-
-- **Triangle profile case**: moves too short to reach peak velocity before needing to decelerate aren't yet handled cleanly
-- **PID gain tuning trade-off**: short moves need higher gain to overcome motor stiction and reach target; that same gain causes longer moves to overshoot before fully decelerating. Lowering gain fixes long moves but causes short moves to time out short of target. This is an open trade-off, not yet resolved with a single gain schedule
-
 ## Contributions
 
 This was a group project (MECHENG 306). Individual contribution breakdown:
@@ -38,18 +33,6 @@ This was a group project (MECHENG 306). Individual contribution breakdown:
 - 2x DC servo motors with integrated quadrature encoders
 - DFRobot L298P motor shield (used only for pin/direction abstraction — motor control logic is original)
 - 4x mechanical limit switches
-
-## Repo Structure
-
-```
-corexy-plotter/
-├── firmware/
-│   └── PID_FSM.cpp
-├── docs/
-│   └── motion-profile-derivation.md
-└── media/
-    └── demo.gif
-```
 
 ## Building / Running
 
