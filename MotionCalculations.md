@@ -122,7 +122,3 @@ $$\text{targetLeft} = V \cdot (\hat{x} + \hat{y})$$
 $$\text{targetRight} = V \cdot (\hat{x} - \hat{y})$$
 
 Each motor then has its own velocity-based PID loop closing on this target, with a separate low-gain sync term correcting for any left/right drift using the ratio of actual to target velocity per motor.
-
-## Known Limitation
-
-The triangle-profile branch computes a reduced peak velocity $v_f$, but the current implementation does not yet re-derive `moveJ` distinctly for the triangle case in all downstream calculations — this is the open issue referenced in the README under "Known Issues."
