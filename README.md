@@ -8,7 +8,7 @@ The plotter accepts a subset of G-code over serial (`G28` homing, `G1` linear mo
 
 ## Key Features
 
-- **CoreXY kinematics** - belt-driven XY motion decoupled via `dA = dX + dY`, `dB = dX − dY`
+- **XY kinematics** - belt-driven XY motion decoupled via `dA = dX + dY`, `dB = dX − dY`
 - **Non-blocking FSM** - `IDLE`, `HOMING`, `MOVING`, `FAULT` states with no `delay()` calls anywhere in the control path
 - **S-curve motion profiling** - full 7-segment velocity profile, converted from time-based to distance-based using live encoder measurement. Derived from scratch: cube root solution for the initial ramp stage, the quadratic formula for the constant-jerk stage, and Cardano's formula for the final stage
 - **Per-motor PID** - ratio-based synchronization comparing each motor's actual-to-target velocity ratio, keeping both axes in step during coordinated moves
@@ -18,7 +18,7 @@ The plotter accepts a subset of G-code over serial (`G28` homing, `G1` linear mo
 ## Technical Decisions
 
 - Velocity is normalized against Euclidean path length so diagonal moves ramp consistently with axis-aligned ones
-- Jerk is derived from commanded velocity and a tunable `RAMP_TIME_S`, rather than hardcoded
+- Jerk is derived from commanded velocity and a tunable `TA`, rather than hardcoded
 - Distance tracking uses an incremental dx/dy accumulator rather than absolute position, to stay robust to any single bad encoder read
 
 ## Contributions
@@ -36,7 +36,6 @@ This was a group project (MECHENG 306). Individual contribution breakdown:
 
 ## Building / Running
 
-1. Open `firmware/PID_FSM.cpp` in the Arduino IDE
-2. Select Arduino Mega 2560 as the target board
-3. Upload, then connect via Serial Monitor (or any serial terminal) at the configured baud rate
-4. Send `G28` to home, then `G1 X.. Y..` commands for linear moves
+1. Select Arduino Mega 2560 as the target board
+2. Upload, then connect via Serial Monitor (or any serial terminal) at the configured baud rate
+3. Send `G28` to home, then `G1 X.. Y..` commands for linear moves
